@@ -282,35 +282,6 @@ for (const [key, value] of Object.entries(obj)) {
 }
 ```
 
-### Деструктуризация
-
-```javascript
-const user = { name: "Ivan", age: 25 };
-const { name, age } = user;
-
-const arr = [1, 2, 3];
-const [first, second] = arr;
-```
-
-### Spread / Rest
-
-```javascript
-// Spread для массивов
-const a = [1, 2];
-const b = [3, 4];
-const merged = [...a, ...b]; // [1, 2, 3, 4]
-
-// Spread для объектов
-const obj1 = { a: 1 };
-const obj2 = { b: 2 };
-const full = { ...obj1, ...obj2 }; // { a: 1, b: 2 }
-
-// Rest в параметрах функции
-function sum(...nums) {
-    return nums.reduce((acc, n) => acc + n, 0);
-}
-```
-
 ---
 
 ## Map и Set
@@ -382,22 +353,6 @@ function greet(name = "Guest") {
 
 ```javascript
 const nums = [3, 7, 2, 9, 4];
-
-// Вариант 1: через цикл
-function findMax(arr) {
-    let max = arr[0];
-    for (let i = 1; i < arr.length; i++) {
-        if (arr[i] > max) {
-            max = arr[i];
-        }
-    }
-    return max;
-}
-
-// Вариант 2: Math.max + spread
-const max = Math.max(...nums);
-
-console.log(findMax(nums)); // 9
 ```
 
 ---
@@ -406,17 +361,6 @@ console.log(findMax(nums)); // 9
 
 ```javascript
 const nums = [1, 2, 3, 4, 5, 6, 7, 8];
-
-// Вариант 1: цикл
-for (const n of nums) {
-    if (n % 2 === 0) {
-        console.log(n);
-    }
-}
-
-// Вариант 2: filter
-const even = nums.filter(n => n % 2 === 0);
-console.log(even); // [2, 4, 6, 8]
 ```
 
 ---
@@ -425,18 +369,6 @@ console.log(even); // [2, 4, 6, 8]
 
 ```javascript
 const nums = [1, 2, 3, 4, 5];
-
-// Вариант 1: цикл
-let sum = 0;
-for (const n of nums) {
-    sum += n;
-}
-
-// Вариант 2: reduce
-const sum2 = nums.reduce((acc, n) => acc + n, 0);
-
-console.log(sum);  // 15
-console.log(sum2); // 15
 ```
 
 ---
@@ -445,34 +377,13 @@ console.log(sum2); // 15
 
 ```javascript
 const str = "hello";
-
-// Вариант 1: split + reverse + join
-const reversed = str.split("").reverse().join("");
-
-// Вариант 2: цикл
-let result = "";
-for (let i = str.length - 1; i >= 0; i--) {
-    result += str[i];
-}
-
-console.log(reversed); // "olleh"
 ```
 
 ---
 
 ### Задача 5. Проверить, является ли строка палиндромом
 
-```javascript
-function isPalindrome(str) {
-    const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, "");
-    const reversed = cleaned.split("").reverse().join("");
-    return cleaned === reversed;
-}
 
-console.log(isPalindrome("racecar"));  // true
-console.log(isPalindrome("A man a plan a canal Panama")); // true
-console.log(isPalindrome("hello"));    // false
-```
 
 ---
 
@@ -480,17 +391,6 @@ console.log(isPalindrome("hello"));    // false
 
 ```javascript
 const arr = ["apple", "banana", "apple", "cherry", "banana", "apple"];
-
-function countOccurrences(arr) {
-    const counts = {};
-    for (const item of arr) {
-        counts[item] = (counts[item] || 0) + 1;
-    }
-    return counts;
-}
-
-console.log(countOccurrences(arr));
-// { apple: 3, banana: 2, cherry: 1 }
 ```
 
 ---
@@ -499,15 +399,6 @@ console.log(countOccurrences(arr));
 
 ```javascript
 const arr = [1, 2, 2, 3, 4, 4, 5];
-
-// Вариант 1: Set
-const unique = [...new Set(arr)];
-
-// Вариант 2: filter
-const unique2 = arr.filter((item, index) => arr.indexOf(item) === index);
-
-console.log(unique);  // [1, 2, 3, 4, 5]
-console.log(unique2); // [1, 2, 3, 4, 5]
 ```
 
 ---
@@ -517,71 +408,7 @@ console.log(unique2); // [1, 2, 3, 4, 5]
 ```javascript
 const arr1 = [1, 2, 3, 4, 5];
 const arr2 = [3, 4, 5, 6, 7];
-
-// Вариант 1: filter + includes
-const common = arr1.filter(item => arr2.includes(item));
-
-// Вариант 2: Set
-const set2 = new Set(arr2);
-const common2 = arr1.filter(item => set2.has(item));
-
-console.log(common);  // [3, 4, 5]
-console.log(common2); // [3, 4, 5]
 ```
-
----
-
-### Задача 9. Преобразовать массив объектов по заданному критерию
-
-```javascript
-const users = [
-    { name: "Ivan", age: 25 },
-    { name: "Maria", age: 17 },
-    { name: "Petr", age: 30 }
-];
-
-// Получить имена совершеннолетних
-const adults = users
-    .filter(user => user.age >= 18)
-    .map(user => user.name);
-
-console.log(adults); // ["Ivan", "Petr"]
-```
-
----
-
-### Задача 10. Сгруппировать элементы массива по условию
-
-```javascript
-const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-// Разбить на четные и нечетные
-function partition(arr) {
-    const even = [];
-    const odd = [];
-    for (const n of arr) {
-        if (n % 2 === 0) {
-            even.push(n);
-        } else {
-            odd.push(n);
-        }
-    }
-    return { even, odd };
-}
-
-// Вариант через reduce
-function partition2(arr) {
-    return arr.reduce((acc, n) => {
-        (n % 2 === 0 ? acc.even : acc.odd).push(n);
-        return acc;
-    }, { even: [], odd: [] });
-}
-
-console.log(partition(nums));
-// { even: [2, 4, 6, 8, 10], odd: [1, 3, 5, 7, 9] }
-```
-
----
 
 ## Шпаргалка: полезные приемы
 
